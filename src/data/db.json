@@ -1,0 +1,61 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Fix memory leak in sidebar component",
+      "description": "Clean up event listeners on unmount in useTheme to prevent leak.",
+      "status": "todo",
+      "createdAt": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "2",
+      "title": "Enable Partial Prerendering (PPR)",
+      "description": "Set cacheComponents: true and toggle experimental flags in nextConfig.",
+      "status": "in-progress",
+      "createdAt": "2026-06-11T12:30:00Z"
+    },
+    {
+      "id": "3",
+      "title": "Add React 19 View Transitions",
+      "description": "Implement shared element morphing between photogrid and photo details.",
+      "status": "done",
+      "createdAt": "2026-06-11T11:00:00Z"
+    }
+  ],
+  "products": [
+    {
+      "slug": "sword-of-light",
+      "name": "Sword of Light",
+      "price": 150,
+      "description": "A radiant, shimmering blade forged in the solar forge. Emits a soft, warm light that repels dark entities.",
+      "category": "Weapons"
+    },
+    {
+      "slug": "shield-of-shadows",
+      "name": "Shield of Shadows",
+      "price": 220,
+      "description": "Forged in the obsidian caves, this shield absorbs incoming spells and converts them into pure mana for the bearer.",
+      "category": "Armor"
+    },
+    {
+      "slug": "elixir-of-life",
+      "name": "Elixir of Life",
+      "price": 50,
+      "description": "Instantly heals all injuries and restores physical stamina to peak levels. Crafted from distilled stardust.",
+      "category": "Potions"
+    },
+    {
+      "slug": "helm-of-wisdom",
+      "name": "Helm of Wisdom",
+      "price": 180,
+      "description": "An enchanted bronze crown that increases cognitive capacity and grants immediate understanding of ancient glyphs.",
+      "category": "Armor"
+    }
+  ],
+  "inventory": {
+    "sword-of-light": 3,
+    "shield-of-shadows": 0,
+    "elixir-of-life": 12,
+    "helm-of-wisdom": 7
+  }
+}
