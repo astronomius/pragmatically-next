@@ -21,16 +21,22 @@ export default function ThemeLabPage() {
   
   // Accordion persistence state
   const STORAGE_KEY = "pragmatic-accordion-open";
-  const [isOpenSection, setIsOpenSection] = useState<string>(() => {
-    if (typeof window === "undefined") return "features";
-    return localStorage.getItem(STORAGE_KEY) || "features";
-  });
+  const [isOpenSection, setIsOpenSection] = useState<string>("features");
 
   // Client-only mount detection
   useEffect(() => {
     setTimeout(() => {
       setMounted(true);
     }, 0);
+
+    // Sync accordion state on mount to prevent hydration mismatch
+    const savedAccordion = localStorage.getItem(STORAGE_KEY);
+    if (savedAccordion) {
+      setTimeout(() => {
+        setIsOpenSection(savedAccordion);
+      }, 0);
+    }
+
     const timer = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString());
     }, 1000);

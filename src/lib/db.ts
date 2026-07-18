@@ -17,10 +17,29 @@ export interface Product {
   category: string;
 }
 
+export interface Note {
+  id: string;
+  title: string;
+  content: string;
+  isDraft: boolean;
+  userId: string;
+  createdAt: string;
+}
+
+export interface Log {
+  id: string;
+  timestamp: string;
+  level: "INFO" | "WARNING" | "ERROR";
+  service: string;
+  message: string;
+}
+
 interface Database {
   tasks: Task[];
   products: Product[];
   inventory: Record<string, number>;
+  notes: Note[];
+  logs: Log[];
 }
 
 const dbPath = path.join(process.cwd(), "src/data/db.json");
@@ -29,10 +48,17 @@ const dbPath = path.join(process.cwd(), "src/data/db.json");
 async function readDB(): Promise<Database> {
   try {
     const data = await fs.readFile(dbPath, "utf-8");
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    return {
+      tasks: parsed.tasks || [],
+      products: parsed.products || [],
+      inventory: parsed.inventory || {},
+      notes: parsed.notes || [],
+      logs: parsed.logs || [],
+    };
   } catch (e) {
     console.error("Failed to read database, returning empty default", e);
-    return { tasks: [], products: [], inventory: {} };
+    return { tasks: [], products: [], inventory: {}, notes: [], logs: [] };
   }
 }
 
@@ -102,4 +128,50 @@ export async function getProductInventory(slug: string): Promise<number> {
   const db = await readDB();
   const count = db.inventory[slug];
   return count !== undefined ? count : 0;
+}
+
+/* --- Notes Operations --- */
+
+export async function getNotes(userId: string): Promise<Note[]> {
+  const db = await readDB();
+  return db.notes
+    .filter((n) => n.userId === userId)
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+}
+
+export async function createNote(
+  title: string,
+  content: string,
+  isDraft: boolean,
+  userId: string
+): Promise<Note> {
+  const db = await readDB();
+  const newNote: Note = {
+    id: "n-" + Math.random().toString(36).substring(2, 9),
+    title,
+    content,
+    isDraft,
+    userId,
+    createdAt: new Date().toISOString(),
+  };
+  db.notes.push(newNote);
+  await writeDB(db);
+  return newNote;
+}
+
+/* --- Logs Operations --- */
+
+export async function getLogs(offset: number, limit: number): Promise<{ logs: Log[]; hasMore: boolean }> {
+  const db = await readDB();
+  const sortedLogs = [...db.logs].sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  );
+  
+  const sliced = sortedLogs.slice(offset, offset + limit);
+  const hasMore = offset + limit < sortedLogs.length;
+  
+  return {
+    logs: sliced,
+    hasMore,
+  };
 }

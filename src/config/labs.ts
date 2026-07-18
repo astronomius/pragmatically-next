@@ -39,6 +39,29 @@ export const labsRegistry: LabItem[] = [
     }
   },
   {
+    id: "image-opt",
+    title: "LCP Image Optimization",
+    slug: "image",
+    chapter: "Basic",
+    path: "/basic/image",
+    shortDescription: "Practice Core Web Vitals optimizations and prevent visual layout reflows.",
+    difficulty: "Easy",
+    practices: [
+      "Core Web Vitals optimizations targeting Largest Contentful Paint (LCP)",
+      "Preventing Cumulative Layout Shift (CLS) with fill layout and sizing constraints",
+      "Automatic responsive WebP/AVIF format conversions based on browser headers"
+    ],
+    explanation: {
+      what: "A side-by-side performance comparator highlighting the loading speeds and size differences between an unoptimized HTML img element and an LCP-configured Next.js Image component.",
+      apis: [
+        "<Image> Component",
+        "priority preloading tag",
+        "sizes layout rendering tips"
+      ],
+      howItWorks: "Next.js automatically processes raw image assets at compile-time and run-time. By applying the priority attribute, we instruct the browser's preloader to fetch the resource early in the DOM cycle. The sizes configuration helps Next.js serve correctly scaled responsive variants to reduce mobile bandwidth payloads."
+    }
+  },
+  {
     id: "optimistic-tasks",
     title: "Optimistic Task Board",
     slug: "tasks",
@@ -60,6 +83,29 @@ export const labsRegistry: LabItem[] = [
         "Next.js Server Actions with revalidatePath()"
       ],
       howItWorks: "When a status edit or creation is dispatched, `useOptimistic` captures the action and updates the visual state instantly. Simultaneously, the Server Action is called asynchronously to update the local JSON database file. Once the server finishes writing and calls `revalidatePath`, React updates the server state and replaces the optimistic state with the actual server values without any layout jank or reload."
+    }
+  },
+  {
+    id: "form-shortcuts",
+    title: "Form Shortcuts & Bindings",
+    slug: "form-shortcuts",
+    chapter: "Intermediate",
+    path: "/intermediate/form-shortcuts",
+    shortDescription: "Using React 19 formAction overrides, binding parameters, and requestSubmit.",
+    difficulty: "Medium",
+    practices: [
+      "React 19 button formAction attribute to run separate actions in a single form",
+      "Function.prototype.bind to attach state parameters on server actions",
+      "Programmatic form submission using form.requestSubmit() on keyboard events"
+    ],
+    explanation: {
+      what: "A notepad workspace allowing notes to be saved as drafts or published directly. Overrides default form actions dynamically using formAction attributes on buttons, and supports keyboard submissions.",
+      apis: [
+        "formAction button attribute",
+        "action.bind() parameter attachment",
+        "form.requestSubmit() programmatic submit"
+      ],
+      howItWorks: "Buttons in React 19 can declare their own action override via formAction, triggering specific Server Actions. We use Function.prototype.bind to pre-populate parameters (such as userId) to the Server Action. When Cmd+Enter is hit, requestSubmit() triggers submission programmatically while respecting built-in HTML form validation rules."
     }
   },
   {
@@ -106,6 +152,52 @@ export const labsRegistry: LabItem[] = [
         "key changes to trigger in-place animation"
       ],
       howItWorks: "When navigating to a detail route, React identifies elements on the old page and new page that share the same `name` property. It triggers the browser's View Transitions API, which takes snapshots of both elements, computes the layout delta, and runs a CSS keyframe morph. By adding custom `transitionTypes` (like `nav-forward`), we apply CSS selectors (e.g. `::view-transition-new(.nav-forward)`) to trigger custom directional slides."
+    }
+  },
+  {
+    id: "infinite-scroller",
+    title: "Infinite Scroller Action",
+    slug: "infinite-scroller",
+    chapter: "Advanced",
+    path: "/advanced/scroller",
+    shortDescription: "Streaming chunk-based pagination results using useTransition and Server Actions.",
+    difficulty: "Hard",
+    practices: [
+      "Server Action offset pagination queries",
+      "React 19 useTransition to execute non-blocking server fetches",
+      "Client-side infinite scroller interceptor using IntersectionObserver"
+    ],
+    explanation: {
+      what: "An interactive log terminal. As the user scrolls, new pages of database logs are loaded asynchronously and appended to the logs list with zero visual blocking.",
+      apis: [
+        "useTransition() hook",
+        "IntersectionObserver browser API",
+        "revalidatePath() data alignment"
+      ],
+      howItWorks: "The container renders an intersection trigger element. When this trigger enters the viewport, a client hook initiates a React transition and invokes the loadMore server action. Because the fetch is wrapped in a transition, client routing and other components remain fully responsive while the new chunks are streamed and rendered."
+    }
+  },
+  {
+    id: "use-hook",
+    title: "use() Hook Configuration",
+    slug: "use-hook",
+    chapter: "Advanced",
+    path: "/advanced/use-hook",
+    shortDescription: "Consuming promises and context conditionally or inside branches using the use() hook.",
+    difficulty: "Medium",
+    practices: [
+      "React 19 use() hook to dynamically resolve promises inside loops or branches",
+      "Consuming React contexts conditionally without useContext hook limitations",
+      "Integrating Suspense boundaries with promise resolution"
+    ],
+    explanation: {
+      what: "A settings configuration loader. It resolves site preferences and feature rules conditionally depending on selected modes, loading variables on demand.",
+      apis: [
+        "use(Promise) resolution",
+        "use(Context) resolution",
+        "<Suspense> loader fallback"
+      ],
+      howItWorks: "Unlike typical React hooks, use() can be invoked conditionally, inside loops, or after early returns. When passed a promise, use() suspends the component until it resolves, allowing inline asynchronous data loading. When passed a context, it dynamically retrieves context values inside specific conditional branches."
     }
   }
 ];

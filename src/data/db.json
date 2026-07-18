@@ -11,7 +11,7 @@
       "id": "2",
       "title": "Enable Partial Prerendering (PPR)",
       "description": "Set cacheComponents: true and toggle experimental flags in nextConfig.",
-      "status": "in-progress",
+      "status": "todo",
       "createdAt": "2026-06-11T12:30:00Z"
     },
     {
@@ -57,5 +57,138 @@
     "shield-of-shadows": 0,
     "elixir-of-life": 12,
     "helm-of-wisdom": 7
-  }
+  },
+  "notes": [
+    {
+      "id": "n1",
+      "title": "React 19 Server Functions architecture",
+      "content": "Server actions act as secure RPC endpoints. The client initiates POST requests carrying serialized argument structures. It supports progressive enhancement by default.",
+      "isDraft": false,
+      "userId": "user-999",
+      "createdAt": "2026-06-18T10:00:00Z"
+    },
+    {
+      "id": "n2",
+      "title": "PPR caching lifecycles",
+      "content": "PPR static shells are prerendered and cached at build-time or edge points. Dynamic segments stream downstream using Suspense chunks over HTTP transfer-encoding chunked.",
+      "isDraft": true,
+      "userId": "user-999",
+      "createdAt": "2026-06-18T10:30:00Z"
+    },
+    {
+      "id": "n-ify8biw",
+      "title": "Nodle",
+      "content": "anything",
+      "isDraft": true,
+      "userId": "user-999",
+      "createdAt": "2026-06-18T09:36:58.334Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "l1",
+      "timestamp": "2026-06-18T12:00:00Z",
+      "level": "INFO",
+      "service": "auth-service",
+      "message": "User user-999 successfully authenticated from IP 192.168.1.45"
+    },
+    {
+      "id": "l2",
+      "timestamp": "2026-06-18T12:01:05Z",
+      "level": "WARNING",
+      "service": "rate-limiter",
+      "message": "IP 203.0.113.195 exceeded request threshold on endpoint /api/auth"
+    },
+    {
+      "id": "l3",
+      "timestamp": "2026-06-18T12:02:12Z",
+      "level": "INFO",
+      "service": "db-pool",
+      "message": "Acquired new connection; active connections pool count: 12/50"
+    },
+    {
+      "id": "l4",
+      "timestamp": "2026-06-18T12:03:40Z",
+      "level": "ERROR",
+      "service": "payment-gateway",
+      "message": "Failed to verify transaction tx_88492; server timed out after 5000ms"
+    },
+    {
+      "id": "l5",
+      "timestamp": "2026-06-18T12:04:15Z",
+      "level": "INFO",
+      "service": "inventory-sync",
+      "message": "Syncing warehouse inventory counts for item slug: sword-of-light"
+    },
+    {
+      "id": "l6",
+      "timestamp": "2026-06-18T12:05:22Z",
+      "level": "INFO",
+      "service": "cache-invalidator",
+      "message": "Invalidated static cache for paths: ['/advanced/shop/sword-of-light']"
+    },
+    {
+      "id": "l7",
+      "timestamp": "2026-06-18T12:06:55Z",
+      "level": "WARNING",
+      "service": "disk-monitor",
+      "message": "Disk space utilization on volume /var/data exceeded warning threshold (82%)"
+    },
+    {
+      "id": "l8",
+      "timestamp": "2026-06-18T12:07:01Z",
+      "level": "INFO",
+      "service": "cron-service",
+      "message": "Triggered database index optimization task successfully"
+    },
+    {
+      "id": "l9",
+      "timestamp": "2026-06-18T12:08:18Z",
+      "level": "INFO",
+      "service": "notification-dispatcher",
+      "message": "Dispatched email receipt for payment tx_88490 to agi@gmail.com"
+    },
+    {
+      "id": "l10",
+      "timestamp": "2026-06-18T12:09:44Z",
+      "level": "ERROR",
+      "service": "routing-gateway",
+      "message": "Failed to resolve downstream service DNS name config-service.local"
+    },
+    {
+      "id": "l11",
+      "timestamp": "2026-06-18T12:10:02Z",
+      "level": "INFO",
+      "service": "auth-service",
+      "message": "Session token updated for user-999; active TTL: 3600 seconds"
+    },
+    {
+      "id": "l12",
+      "timestamp": "2026-06-18T12:11:15Z",
+      "level": "INFO",
+      "service": "db-pool",
+      "message": "Released idle connection; active connections pool count: 11/50"
+    },
+    {
+      "id": "l13",
+      "timestamp": "2026-06-18T12:12:30Z",
+      "level": "WARNING",
+      "service": "telemetry-collector",
+      "message": "Failed to post batch payload to metric gateway: status code 503"
+    },
+    {
+      "id": "l14",
+      "timestamp": "2026-06-18T12:13:45Z",
+      "level": "INFO",
+      "service": "cache-invalidator",
+      "message": "Static page generation check passed for layout container views"
+    },
+    {
+      "id": "l15",
+      "timestamp": "2026-06-18T12:14:59Z",
+      "level": "INFO",
+      "service": "notification-dispatcher",
+      "message": "Dispatched push notification alerts to 4 subscribed devices"
+    }
+  ]
 }
