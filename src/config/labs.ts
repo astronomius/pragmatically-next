@@ -178,6 +178,29 @@ export const labsRegistry: LabItem[] = [
     }
   },
   {
+    id: "error-boundary",
+    title: "Error Boundary Components",
+    slug: "error-boundary",
+    chapter: "Intermediate",
+    path: "/intermediate/error-boundary",
+    shortDescription: "Catching and recovering from rendering errors in Next.js.",
+    difficulty: "Medium",
+    practices: [
+      "Using error.tsx to define React Error Boundaries",
+      "Handling errors in Server Components vs. Client Components",
+      "Using the reset() function to attempt recovery"
+    ],
+    explanation: {
+      what: "A demonstration of Next.js Error Boundaries. Next.js uses error.tsx to wrap route segments in React Error Boundaries. This lab shows how to catch and recover from errors originating in both Server and Client Components.",
+      apis: [
+        "error.tsx",
+        "reset() function",
+        "React Error Boundaries"
+      ],
+      howItWorks: "When an error is thrown in a component (Server or Client) during rendering, the nearest error.tsx file acts as an Error Boundary, catching the error and displaying a fallback UI. The error.tsx component receives the error object and a reset function. Calling reset() attempts to re-render the segment, which is useful if the error was transient."
+    }
+  },
+  {
     id: "instant-shop",
     title: "Instant Shop storefront",
     slug: "shop",
