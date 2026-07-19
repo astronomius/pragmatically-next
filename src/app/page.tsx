@@ -11,7 +11,10 @@ import {
   Award,
   Layers,
   Sparkles,
-  Zap
+  Zap,
+  PackageOpen,
+  Filter,
+  ShieldCheck
 } from "lucide-react";
 
 export default function HomePage() {
@@ -42,6 +45,9 @@ export default function HomePage() {
       tasks: CheckSquare,
       shop: ShoppingBag,
       gallery: ImageIcon,
+      lazy: PackageOpen,
+      "search-params": Filter,
+      rbac: ShieldCheck,
     };
 
     const IconComponent = icons[lab.slug as keyof typeof icons] || FlaskConical;

@@ -62,6 +62,29 @@ export const labsRegistry: LabItem[] = [
     }
   },
   {
+    id: "lazy-loading",
+    title: "Dynamic Imports & Lazy Loading",
+    slug: "lazy",
+    chapter: "Basic",
+    path: "/basic/lazy",
+    shortDescription: "Deferring component JS bundles with next/dynamic to reduce initial load weight.",
+    difficulty: "Easy",
+    practices: [
+      "next/dynamic to split and defer Client Component bundles per interaction",
+      "ssr: false to prevent server-side rendering of browser-only components",
+      "Custom loading fallback skeletons during dynamic import resolution"
+    ],
+    explanation: {
+      what: "An interactive playground demonstrating bundle code-splitting strategies. Toggling a component on and off shows how next/dynamic defers the JavaScript download until the moment it is needed, measurably reducing initial bundle weight.",
+      apis: [
+        "dynamic() from next/dynamic",
+        "ssr: false option for client-only components",
+        "loading: () => fallback custom loading skeletons"
+      ],
+      howItWorks: "By default, every component imported at the top of a file is included in the initial JavaScript bundle. next/dynamic wraps React.lazy() and Suspense so the component's code is split into a separate chunk. That chunk is downloaded only when the component first renders, slashing initial page weight. Setting ssr: false further prevents the component from being prerendered on the server — useful for code that accesses browser-only APIs like window."
+    }
+  },
+  {
     id: "optimistic-tasks",
     title: "Optimistic Task Board",
     slug: "tasks",
@@ -106,6 +129,52 @@ export const labsRegistry: LabItem[] = [
         "form.requestSubmit() programmatic submit"
       ],
       howItWorks: "Buttons in React 19 can declare their own action override via formAction, triggering specific Server Actions. We use Function.prototype.bind to pre-populate parameters (such as userId) to the Server Action. When Cmd+Enter is hit, requestSubmit() triggers submission programmatically while respecting built-in HTML form validation rules."
+    }
+  },
+  {
+    id: "search-params",
+    title: "Search Params & URL State",
+    slug: "search-params",
+    chapter: "Intermediate",
+    path: "/intermediate/search-params",
+    shortDescription: "Driving server renders and client filters from URL query parameters.",
+    difficulty: "Medium",
+    practices: [
+      "Reading searchParams prop in async Server Components for server-side filtering",
+      "useSearchParams() and useRouter().push() for client-side URL state updates",
+      "Composing query strings with <Link> for filter navigation without JS"
+    ],
+    explanation: {
+      what: "A product catalog filtered and sorted entirely through URL query parameters. Clicking a category tab or sort control updates the URL, which triggers a server re-render with new filtered data — no external state management required.",
+      apis: [
+        "searchParams page prop (Server Component)",
+        "useSearchParams() from next/navigation",
+        "useRouter().push() for programmatic URL updates"
+      ],
+      howItWorks: "Async Server Components receive a searchParams prop that reflects the current URL query string. Filtering logic runs on the server, ensuring the correct dataset is streamed before the page hydrates. On the client, useSearchParams() reads the same query params reactively. Calling router.push() with a new query string triggers a shallow navigation — Next.js re-fetches only the Server Component subtree, not the entire page, updating both the URL and the rendered output."
+    }
+  },
+  {
+    id: "rbac-proxy",
+    title: "RBAC & Middleware Proxy",
+    slug: "rbac",
+    chapter: "Intermediate",
+    path: "/intermediate/rbac",
+    shortDescription: "Role-Based Access Control using Next.js middleware and cookies.",
+    difficulty: "Medium",
+    practices: [
+      "Next.js Middleware proxy routing",
+      "Cookie-based Role-Based Access Control (RBAC)",
+      "Server Actions for cookie manipulation"
+    ],
+    explanation: {
+      what: "A dashboard allowing you to assume different roles (Admin, User, Guest). When navigating to protected routes, the Next.js middleware intercepts the request, checks your role cookie, and either allows access or redirects unauthorized users.",
+      apis: [
+        "middleware.ts",
+        "NextRequest & NextResponse",
+        "cookies().set() from next/headers"
+      ],
+      howItWorks: "Next.js middleware runs before a request is completed. Our middleware intercepts requests to /intermediate/rbac/admin and /intermediate/rbac/user, reads the 'userRole' cookie, and determines if the user has the required permission. If not, it redirects them back with an error."
     }
   },
   {

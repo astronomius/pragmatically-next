@@ -53,6 +53,8 @@ export async function publishNoteAction(
     await new Promise((resolve) => setTimeout(resolve, 800));
 
     await createNote(title, content || "", false, userId);
+
+    // Reload the page
     revalidatePath("/intermediate/form-shortcuts");
     return { success: true, error: null, message: "Note published successfully!" };
   } catch (e) {
